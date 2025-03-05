@@ -1,4 +1,4 @@
-use crate::components::basic_logic::nand::NandGate;
+use crate::components::logic::nand::NandGate;
 use crate::components::Component;
 use crate::io_types::dual::DualIO;
 use crate::io_types::single::SingleIO;

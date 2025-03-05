@@ -1,33 +1,29 @@
-use crate::components::basic_logic::nand::NandGate;
-use crate::components::basic_logic::not::NotGate;
+use crate::components::logic::nand::NandGate;
 use crate::components::Component;
-use crate::io_types::dual::DualIO;
 use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct AndGate {
-    input: DualIO,
+pub struct NotGate {
+    input: SingleIO,
     nand: NandGate,
-    not: NotGate,
     output: SingleIO,
 }
 
-impl Component for AndGate {
-    type Input = DualIO;
+impl Component for NotGate {
+    type Input = SingleIO;
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        let nand_result = self.nand.evaluate();
-        self.output = self.not.process(nand_result);
+        self.output = self.nand.process((self.input, self.input).into());
         self.output()
     }
 
     fn update(&mut self, input: Self::Input) {
-        self.nand.update(input);
+        self.input = input;
     }
 
     fn input(&self) -> Self::Input {
-        self.nand.input()
+        self.input
     }
 
     fn output(&self) -> Self::Output {

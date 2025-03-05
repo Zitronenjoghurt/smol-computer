@@ -1,24 +1,26 @@
-use crate::components::basic_logic::not::NotGate;
-use crate::components::basic_logic::or::OrGate;
+use crate::components::logic::nand::NandGate;
+use crate::components::logic::not::NotGate;
 use crate::components::Component;
 use crate::io_types::dual::DualIO;
 use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct NorGate {
+pub struct OrGate {
     input: DualIO,
-    or: OrGate,
-    not: NotGate,
+    not_a: NotGate,
+    not_b: NotGate,
+    nand: NandGate,
     output: SingleIO,
 }
 
-impl Component for NorGate {
+impl Component for OrGate {
     type Input = DualIO;
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        let or_result = self.or.process(self.input);
-        self.output = self.not.process(or_result);
+        let not_a = self.not_a.process(self.input.a());
+        let not_b = self.not_b.process(self.input.b());
+        self.output = self.nand.process((not_a, not_b).into());
         self.output()
     }
 

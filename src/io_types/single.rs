@@ -21,8 +21,8 @@ impl IOType for SingleIO {
 
     fn all_combinations() -> Self::Collection {
         vec![
-            SingleIO { value: State::High },
             SingleIO { value: State::Low },
+            SingleIO { value: State::High },
         ]
     }
 }
