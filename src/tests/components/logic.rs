@@ -4,6 +4,7 @@ use crate::components::logic::nand::NandGate;
 use crate::components::logic::nor::NorGate;
 use crate::components::logic::not::NotGate;
 use crate::components::logic::or::OrGate;
+use crate::components::logic::xnor::XnorGate;
 use crate::components::logic::xor::XorGate;
 use crate::io_types::dual::DualIO;
 use crate::io_types::single::SingleIO;
@@ -85,5 +86,19 @@ fn test_xor() {
     .unwrap();
 
     let mut gate = XorGate::default();
+    assert_component_test!(gate, truth_table);
+}
+
+#[test]
+fn test_xnor() {
+    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+        SingleIO::high(),
+        SingleIO::low(),
+        SingleIO::low(),
+        SingleIO::high(),
+    ])
+    .unwrap();
+
+    let mut gate = XnorGate::default();
     assert_component_test!(gate, truth_table);
 }

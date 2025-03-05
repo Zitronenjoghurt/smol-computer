@@ -1,5 +1,6 @@
 use crate::io_types::IOType;
 
+pub mod arithmetic;
 pub mod logic;
 
 #[derive(Debug, Default, Copy, Clone, PartialEq)]

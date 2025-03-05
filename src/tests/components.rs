@@ -2,6 +2,7 @@ use crate::components::Component;
 use crate::truth_table::TruthTable;
 use std::fmt;
 
+mod arithmetic;
 mod logic;
 
 pub type ComponentTestResult<C> = Result<(), ComponentTestReport<C>>;

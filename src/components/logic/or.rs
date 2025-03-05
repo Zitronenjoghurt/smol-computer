@@ -18,8 +18,8 @@ impl Component for OrGate {
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        let not_a = self.not_a.process(self.input.a());
-        let not_b = self.not_b.process(self.input.b());
+        let not_a = self.not_a.process(self.input.a);
+        let not_b = self.not_b.process(self.input.b);
         self.output = self.nand.process((not_a, not_b).into());
         self.output()
     }

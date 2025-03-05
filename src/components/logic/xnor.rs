@@ -1,27 +1,24 @@
-use crate::components::logic::nand::NandGate;
+use crate::components::logic::not::NotGate;
+use crate::components::logic::xor::XorGate;
 use crate::components::Component;
 use crate::io_types::dual::DualIO;
 use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
-pub struct XorGate {
+pub struct XnorGate {
     input: DualIO,
-    nand1: NandGate, // A NAND B
-    nand2: NandGate, // A NAND (A NAND B)
-    nand3: NandGate, // B NAND (A NAND B)
-    nand4: NandGate, // nand2 NAND nand3
+    xor: XorGate,
+    not: NotGate,
     output: SingleIO,
 }
 
-impl Component for XorGate {
+impl Component for XnorGate {
     type Input = DualIO;
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        let nand_1 = self.nand1.process(self.input);
-        let nand_2 = self.nand2.process((self.input.a, nand_1).into());
-        let nand_3 = self.nand3.process((self.input.b, nand_1).into());
-        self.output = self.nand4.process((nand_2, nand_3).into());
+        let or_result = self.xor.process(self.input);
+        self.output = self.not.process(or_result);
         self.output()
     }
 
