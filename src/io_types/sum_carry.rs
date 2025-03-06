@@ -1,26 +1,25 @@
 use crate::io_types::dual::DualIO;
-use crate::io_types::single::SingleIO;
 use crate::io_types::IOType;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
-pub struct SumCarryIO(DualIO);
+pub struct SumCarryIO<T: IOType>(DualIO<T>);
 
-impl SumCarryIO {
-    pub fn new(sum: SingleIO, carry: SingleIO) -> Self {
+impl<T: IOType> SumCarryIO<T> {
+    pub fn new(sum: T, carry: T) -> Self {
         Self(DualIO::new(sum, carry))
     }
 
-    pub fn sum(&self) -> SingleIO {
+    pub fn sum(&self) -> T {
         self.0.a()
     }
 
-    pub fn carry(&self) -> SingleIO {
+    pub fn carry(&self) -> T {
         self.0.b()
     }
 }
 
-impl IOType for SumCarryIO {
-    type Collection = Vec<SumCarryIO>;
+impl<T: IOType> IOType for SumCarryIO<T> {
+    type Collection = Vec<SumCarryIO<T>>;
 
     fn all_combinations() -> Self::Collection {
         DualIO::all_combinations()

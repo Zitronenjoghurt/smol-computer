@@ -6,14 +6,14 @@ use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct XnorGate {
-    input: DualIO,
+    input: DualIO<SingleIO>,
     xor: XorGate,
     not: NotGate,
     output: SingleIO,
 }
 
 impl Component for XnorGate {
-    type Input = DualIO;
+    type Input = DualIO<SingleIO>;
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {

@@ -1,47 +1,39 @@
-use crate::io_types::single::SingleIO;
 use crate::io_types::IOType;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
-pub struct DualIO {
-    a: SingleIO,
-    b: SingleIO,
+pub struct DualIO<T: IOType> {
+    a: T,
+    b: T,
 }
 
-impl DualIO {
-    pub fn new(a: SingleIO, b: SingleIO) -> Self {
+impl<T: IOType> DualIO<T> {
+    pub fn new(a: T, b: T) -> Self {
         Self { a, b }
     }
 
-    pub fn a(&self) -> SingleIO {
+    pub fn a(&self) -> T {
         self.a
     }
 
-    pub fn b(&self) -> SingleIO {
+    pub fn b(&self) -> T {
         self.b
     }
 }
 
-impl IOType for DualIO {
-    type Collection = Vec<DualIO>;
+impl<T: IOType> IOType for DualIO<T> {
+    type Collection = Vec<DualIO<T>>;
 
     fn all_combinations() -> Self::Collection {
-        vec![
-            DualIO {
-                a: SingleIO::low(),
-                b: SingleIO::low(),
-            },
-            DualIO {
-                a: SingleIO::low(),
-                b: SingleIO::high(),
-            },
-            DualIO {
-                a: SingleIO::high(),
-                b: SingleIO::low(),
-            },
-            DualIO {
-                a: SingleIO::high(),
-                b: SingleIO::high(),
-            },
-        ]
+        let a_combinations: Vec<T> = T::all_combinations().into_iter().collect();
+        let b_combinations: Vec<T> = T::all_combinations().into_iter().collect();
+
+        let mut result = Vec::new();
+        for a in a_combinations.iter() {
+            for b in b_combinations.iter() {
+                result.push(DualIO::new(*a, *b));
+            }
+        }
+
+        result
     }
 }

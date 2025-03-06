@@ -1,76 +1,47 @@
-use crate::io_types::single::SingleIO;
 use crate::io_types::IOType;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
-pub struct TripleIO {
-    a: SingleIO,
-    b: SingleIO,
-    c: SingleIO,
+pub struct TripleIO<T: IOType> {
+    a: T,
+    b: T,
+    c: T,
 }
 
-impl TripleIO {
-    pub fn new(a: SingleIO, b: SingleIO, c: SingleIO) -> Self {
+impl<T: IOType> TripleIO<T> {
+    pub fn new(a: T, b: T, c: T) -> Self {
         Self { a, b, c }
     }
 
-    pub fn a(&self) -> SingleIO {
+    pub fn a(&self) -> T {
         self.a
     }
 
-    pub fn b(&self) -> SingleIO {
+    pub fn b(&self) -> T {
         self.b
     }
 
-    pub fn c(&self) -> SingleIO {
+    pub fn c(&self) -> T {
         self.c
     }
 }
 
-impl IOType for TripleIO {
-    type Collection = Vec<TripleIO>;
+impl<T: IOType> IOType for TripleIO<T> {
+    type Collection = Vec<TripleIO<T>>;
 
     fn all_combinations() -> Self::Collection {
-        vec![
-            TripleIO {
-                a: SingleIO::low(),
-                b: SingleIO::low(),
-                c: SingleIO::low(),
-            },
-            TripleIO {
-                a: SingleIO::low(),
-                b: SingleIO::low(),
-                c: SingleIO::high(),
-            },
-            TripleIO {
-                a: SingleIO::low(),
-                b: SingleIO::high(),
-                c: SingleIO::low(),
-            },
-            TripleIO {
-                a: SingleIO::low(),
-                b: SingleIO::high(),
-                c: SingleIO::high(),
-            },
-            TripleIO {
-                a: SingleIO::high(),
-                b: SingleIO::low(),
-                c: SingleIO::low(),
-            },
-            TripleIO {
-                a: SingleIO::high(),
-                b: SingleIO::low(),
-                c: SingleIO::high(),
-            },
-            TripleIO {
-                a: SingleIO::high(),
-                b: SingleIO::high(),
-                c: SingleIO::low(),
-            },
-            TripleIO {
-                a: SingleIO::high(),
-                b: SingleIO::high(),
-                c: SingleIO::high(),
-            },
-        ]
+        let a_combinations: Vec<T> = T::all_combinations().into_iter().collect();
+        let b_combinations: Vec<T> = T::all_combinations().into_iter().collect();
+        let c_combinations: Vec<T> = T::all_combinations().into_iter().collect();
+
+        let mut result = Vec::new();
+        for a in a_combinations.iter() {
+            for b in b_combinations.iter() {
+                for c in c_combinations.iter() {
+                    result.push(TripleIO::new(*a, *b, *c));
+                }
+            }
+        }
+
+        result
     }
 }

@@ -5,7 +5,7 @@ use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct XorGate {
-    input: DualIO,
+    input: DualIO<SingleIO>,
     nand1: NandGate, // A NAND B
     nand2: NandGate, // A NAND (A NAND B)
     nand3: NandGate, // B NAND (A NAND B)
@@ -14,7 +14,7 @@ pub struct XorGate {
 }
 
 impl Component for XorGate {
-    type Input = DualIO;
+    type Input = DualIO<SingleIO>;
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {

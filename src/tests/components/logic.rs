@@ -12,7 +12,7 @@ use crate::truth_table::TruthTable;
 
 #[test]
 fn test_nand() {
-    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+    let truth_table: TruthTable<DualIO<SingleIO>, SingleIO> = TruthTable::create_from_values(vec![
         SingleIO::high(),
         SingleIO::high(),
         SingleIO::high(),
@@ -26,7 +26,7 @@ fn test_nand() {
 
 #[test]
 fn test_and() {
-    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+    let truth_table: TruthTable<DualIO<SingleIO>, SingleIO> = TruthTable::create_from_values(vec![
         SingleIO::low(),
         SingleIO::low(),
         SingleIO::low(),
@@ -40,7 +40,7 @@ fn test_and() {
 
 #[test]
 fn test_nor() {
-    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+    let truth_table: TruthTable<DualIO<SingleIO>, SingleIO> = TruthTable::create_from_values(vec![
         SingleIO::high(),
         SingleIO::low(),
         SingleIO::low(),
@@ -63,7 +63,7 @@ fn test_not() {
 
 #[test]
 fn test_or() {
-    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+    let truth_table: TruthTable<DualIO<SingleIO>, SingleIO> = TruthTable::create_from_values(vec![
         SingleIO::low(),
         SingleIO::high(),
         SingleIO::high(),
@@ -77,7 +77,7 @@ fn test_or() {
 
 #[test]
 fn test_xor() {
-    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+    let truth_table: TruthTable<DualIO<SingleIO>, SingleIO> = TruthTable::create_from_values(vec![
         SingleIO::low(),
         SingleIO::high(),
         SingleIO::high(),
@@ -91,7 +91,7 @@ fn test_xor() {
 
 #[test]
 fn test_xnor() {
-    let truth_table: TruthTable<DualIO, SingleIO> = TruthTable::create_from_values(vec![
+    let truth_table: TruthTable<DualIO<SingleIO>, SingleIO> = TruthTable::create_from_values(vec![
         SingleIO::high(),
         SingleIO::low(),
         SingleIO::low(),

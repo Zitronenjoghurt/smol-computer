@@ -1,30 +1,29 @@
-use crate::io_types::single::SingleIO;
 use crate::io_types::triple::TripleIO;
 use crate::io_types::IOType;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
-pub struct SumCInIO(TripleIO);
+pub struct SumCInIO<T: IOType>(TripleIO<T>);
 
-impl SumCInIO {
-    pub fn new(a: SingleIO, b: SingleIO, carry_in: SingleIO) -> Self {
+impl<T: IOType> SumCInIO<T> {
+    pub fn new(a: T, b: T, carry_in: T) -> Self {
         Self(TripleIO::new(a, b, carry_in))
     }
 
-    pub fn a(&self) -> SingleIO {
+    pub fn a(&self) -> T {
         self.0.a()
     }
 
-    pub fn b(&self) -> SingleIO {
+    pub fn b(&self) -> T {
         self.0.b()
     }
 
-    pub fn carry_in(&self) -> SingleIO {
+    pub fn carry_in(&self) -> T {
         self.0.c()
     }
 }
 
-impl IOType for SumCInIO {
-    type Collection = Vec<SumCInIO>;
+impl<T: IOType> IOType for SumCInIO<T> {
+    type Collection = Vec<SumCInIO<T>>;
 
     fn all_combinations() -> Self::Collection {
         TripleIO::all_combinations()

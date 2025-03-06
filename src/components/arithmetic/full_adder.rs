@@ -2,21 +2,22 @@ use crate::components::arithmetic::half_adder::HalfAdder;
 use crate::components::logic::or::OrGate;
 use crate::components::Component;
 use crate::io_types::dual::DualIO;
+use crate::io_types::single::SingleIO;
 use crate::io_types::sum_c_in::SumCInIO;
 use crate::io_types::sum_carry::SumCarryIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct FullAdder {
-    input: SumCInIO,
+    input: SumCInIO<SingleIO>,
     ha1: HalfAdder,
     ha2: HalfAdder,
     carry: OrGate,
-    output: SumCarryIO,
+    output: SumCarryIO<SingleIO>,
 }
 
 impl Component for FullAdder {
-    type Input = SumCInIO;
-    type Output = SumCarryIO;
+    type Input = SumCInIO<SingleIO>;
+    type Output = SumCarryIO<SingleIO>;
 
     fn evaluate(&mut self) -> Self::Output {
         let h1_in = DualIO::new(self.input.a(), self.input.b());

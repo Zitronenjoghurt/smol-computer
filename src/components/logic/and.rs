@@ -6,14 +6,14 @@ use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct AndGate {
-    input: DualIO,
+    input: DualIO<SingleIO>,
     nand: NandGate,
     not: NotGate,
     output: SingleIO,
 }
 
 impl Component for AndGate {
-    type Input = DualIO;
+    type Input = DualIO<SingleIO>;
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
