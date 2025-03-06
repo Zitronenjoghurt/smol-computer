@@ -4,6 +4,7 @@ use std::fmt;
 
 mod arithmetic;
 mod logic;
+mod routing;
 
 pub type ComponentTestResult<C> = Result<(), ComponentTestReport<C>>;
 

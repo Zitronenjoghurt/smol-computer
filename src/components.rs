@@ -2,6 +2,7 @@ use crate::io_types::IOType;
 
 pub mod arithmetic;
 pub mod logic;
+pub mod routing;
 
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub enum State {
