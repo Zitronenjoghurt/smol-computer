@@ -1,6 +1,7 @@
 use crate::components::arithmetic::half_adder::HalfAdder;
 use crate::components::logic::or::OrGate;
 use crate::components::Component;
+use crate::io_types::dual::DualIO;
 use crate::io_types::sum_c_in::SumCInIO;
 use crate::io_types::sum_carry::SumCarryIO;
 
@@ -18,9 +19,15 @@ impl Component for FullAdder {
     type Output = SumCarryIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        let ha1 = self.ha1.process((self.input.a(), self.input.b()).into());
-        let ha2 = self.ha2.process((self.input.carry_in(), ha1.sum()).into());
-        let carry = self.carry.process((ha1.carry(), ha2.carry()).into());
+        let h1_in = DualIO::new(self.input.a(), self.input.b());
+        let ha1 = self.ha1.process(h1_in);
+
+        let ha2_in = DualIO::new(self.input.carry_in(), ha1.sum());
+        let ha2 = self.ha2.process(ha2_in);
+
+        let carry_in = DualIO::new(ha1.carry(), ha2.carry());
+        let carry = self.carry.process(carry_in);
+
         self.output = SumCarryIO::new(ha2.sum(), carry);
         self.output()
     }

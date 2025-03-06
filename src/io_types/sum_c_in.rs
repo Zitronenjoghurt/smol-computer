@@ -7,19 +7,19 @@ pub struct SumCInIO(TripleIO);
 
 impl SumCInIO {
     pub fn new(a: SingleIO, b: SingleIO, carry_in: SingleIO) -> Self {
-        Self(TripleIO { a, b, c: carry_in })
+        Self(TripleIO::new(a, b, carry_in))
     }
 
     pub fn a(&self) -> SingleIO {
-        self.0.a
+        self.0.a()
     }
 
     pub fn b(&self) -> SingleIO {
-        self.0.b
+        self.0.b()
     }
 
     pub fn carry_in(&self) -> SingleIO {
-        self.0.c
+        self.0.c()
     }
 }
 

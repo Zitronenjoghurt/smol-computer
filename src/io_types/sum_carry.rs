@@ -7,15 +7,15 @@ pub struct SumCarryIO(DualIO);
 
 impl SumCarryIO {
     pub fn new(sum: SingleIO, carry: SingleIO) -> Self {
-        Self(DualIO { a: sum, b: carry })
+        Self(DualIO::new(sum, carry))
     }
 
     pub fn sum(&self) -> SingleIO {
-        self.0.a
+        self.0.a()
     }
 
     pub fn carry(&self) -> SingleIO {
-        self.0.b
+        self.0.b()
     }
 }
 

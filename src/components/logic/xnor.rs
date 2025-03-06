@@ -17,8 +17,8 @@ impl Component for XnorGate {
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        let or_result = self.xor.process(self.input);
-        self.output = self.not.process(or_result);
+        let xor_result = self.xor.process(self.input);
+        self.output = self.not.process(xor_result);
         self.output()
     }
 

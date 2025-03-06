@@ -3,9 +3,27 @@ use crate::io_types::IOType;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
 pub struct TripleIO {
-    pub a: SingleIO,
-    pub b: SingleIO,
-    pub c: SingleIO,
+    a: SingleIO,
+    b: SingleIO,
+    c: SingleIO,
+}
+
+impl TripleIO {
+    pub fn new(a: SingleIO, b: SingleIO, c: SingleIO) -> Self {
+        Self { a, b, c }
+    }
+
+    pub fn a(&self) -> SingleIO {
+        self.a
+    }
+
+    pub fn b(&self) -> SingleIO {
+        self.b
+    }
+
+    pub fn c(&self) -> SingleIO {
+        self.c
+    }
 }
 
 impl IOType for TripleIO {
@@ -54,15 +72,5 @@ impl IOType for TripleIO {
                 c: SingleIO::high(),
             },
         ]
-    }
-}
-
-impl From<(SingleIO, SingleIO, SingleIO)> for TripleIO {
-    fn from(value: (SingleIO, SingleIO, SingleIO)) -> Self {
-        Self {
-            a: value.0,
-            b: value.1,
-            c: value.2,
-        }
     }
 }

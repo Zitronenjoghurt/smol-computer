@@ -1,5 +1,6 @@
 use crate::components::logic::nand::NandGate;
 use crate::components::Component;
+use crate::io_types::dual::DualIO;
 use crate::io_types::single::SingleIO;
 
 #[derive(Debug, Default, Clone, PartialEq)]
@@ -14,7 +15,8 @@ impl Component for NotGate {
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        self.output = self.nand.process((self.input, self.input).into());
+        let nand_in = DualIO::new(self.input, self.input);
+        self.output = self.nand.process(nand_in);
         self.output()
     }
 

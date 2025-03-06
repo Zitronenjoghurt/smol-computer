@@ -7,6 +7,10 @@ pub struct SingleIO {
 }
 
 impl SingleIO {
+    pub fn new(value: State) -> Self {
+        Self { value }
+    }
+
     pub fn high() -> Self {
         Self { value: State::High }
     }
@@ -24,11 +28,5 @@ impl IOType for SingleIO {
             SingleIO { value: State::Low },
             SingleIO { value: State::High },
         ]
-    }
-}
-
-impl From<State> for SingleIO {
-    fn from(value: State) -> Self {
-        SingleIO { value }
     }
 }

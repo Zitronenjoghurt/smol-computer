@@ -3,8 +3,22 @@ use crate::io_types::IOType;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
 pub struct DualIO {
-    pub a: SingleIO,
-    pub b: SingleIO,
+    a: SingleIO,
+    b: SingleIO,
+}
+
+impl DualIO {
+    pub fn new(a: SingleIO, b: SingleIO) -> Self {
+        Self { a, b }
+    }
+
+    pub fn a(&self) -> SingleIO {
+        self.a
+    }
+
+    pub fn b(&self) -> SingleIO {
+        self.b
+    }
 }
 
 impl IOType for DualIO {
@@ -29,14 +43,5 @@ impl IOType for DualIO {
                 b: SingleIO::high(),
             },
         ]
-    }
-}
-
-impl From<(SingleIO, SingleIO)> for DualIO {
-    fn from(value: (SingleIO, SingleIO)) -> Self {
-        Self {
-            a: value.0,
-            b: value.1,
-        }
     }
 }

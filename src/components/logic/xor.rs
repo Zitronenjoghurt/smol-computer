@@ -19,9 +19,15 @@ impl Component for XorGate {
 
     fn evaluate(&mut self) -> Self::Output {
         let nand_1 = self.nand1.process(self.input);
-        let nand_2 = self.nand2.process((self.input.a, nand_1).into());
-        let nand_3 = self.nand3.process((self.input.b, nand_1).into());
-        self.output = self.nand4.process((nand_2, nand_3).into());
+
+        let nand_2_in = DualIO::new(self.input.a(), nand_1);
+        let nand_2 = self.nand2.process(nand_2_in);
+
+        let nand_3_in = DualIO::new(self.input.b(), nand_1);
+        let nand_3 = self.nand3.process(nand_3_in);
+
+        let nand_4_in = DualIO::new(nand_2, nand_3);
+        self.output = self.nand4.process(nand_4_in);
         self.output()
     }
 

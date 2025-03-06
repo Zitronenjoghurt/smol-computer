@@ -13,7 +13,8 @@ impl Component for NandGate {
     type Output = SingleIO;
 
     fn evaluate(&mut self) -> Self::Output {
-        self.output = evaluate_nand(self.input.a.value, self.input.b.value).into();
+        let result = evaluate_nand(self.input.a().value, self.input.b().value);
+        self.output = SingleIO::new(result);
         self.output()
     }
 
